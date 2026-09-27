@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View and filter detected security incidents">
+  <title>Incidents — Security Log Analysis</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="dashboard.html" class="navbar-brand">
+      <div class="logo-icon">🛡️</div>
+      SecLog Analyzer
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.navbar-nav').classList.toggle('open')">☰</button>
+    <ul class="navbar-nav">
+      <li><a href="dashboard.html" class="nav-link">📊 Dashboard</a></li>
+      <li><a href="upload.html" class="nav-link">📤 Upload</a></li>
+      <li><a href="incidents.html" class="nav-link active">🚨 Incidents</a></li>
+      <li><a href="reports.html" class="nav-link">📋 Reports</a></li>
+    </ul>
+    <button class="btn-logout" id="logoutBtn">Logout</button>
+  </nav>
+
+  <div class="page-container">
+    <div class="page-header">
+      <h1>Security Incidents</h1>
+      <p>Detected threats and suspicious activity</p>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <label>Severity</label>
+        <select class="form-control" id="severity">
+          <option value="">All</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+          <option value="critical">Critical</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Status</label>
+        <select class="form-control" id="status">
+          <option value="">All</option>
+          <option value="open">Open</option>
+          <option value="investigating">Investigating</option>
+          <option value="resolved">Resolved</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Type</label>
+        <select class="form-control" id="type">
+          <option value="">All</option>
+          <option value="Brute Force">Brute Force</option>
+          <option value="Unauthorized Access">Unauthorized Access</option>
+          <option value="Abnormal IP Activity">Abnormal IP Activity</option>
+          <option value="Suspicious Endpoint">Suspicious Endpoint</option>
+          <option value="Error Rate Anomaly">Error Rate Anomaly</option>
+          <option value="Suspicious Input">Suspicious Input</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Source IP</label>
+        <input type="text" class="form-control" id="ip" placeholder="e.g., 10.0.0.5">
+      </div>
+      <div class="filter-group">
+        <label>From</label>
+        <input type="date" class="form-control" id="from">
+      </div>
+      <div class="filter-group">
+        <label>To</label>
+        <input type="date" class="form-control" id="to">
+      </div>
+      <div class="filter-group" style="flex:0">
+        <label>&nbsp;</label>
+        <button class="btn btn-primary btn-sm" onclick="loadIncidents(1)">🔍 Filter</button>
+      </div>
+    </div>
+
+    <!-- Incidents Table -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Detected</th>
+            <th>Type</th>
+            <th>Source IP</th>
+            <th>Severity</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="rows">
+          <tr><td colspan="8" class="text-center" style="padding:2rem;color:var(--text-muted);">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <!-- Incident Detail Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Incident Details</h2>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/incidents.js"></script>
+</body>
+</html>

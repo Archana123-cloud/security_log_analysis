@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Download security incident reports as CSV">
+  <title>Reports — Security Log Analysis</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="dashboard.html" class="navbar-brand">
+      <div class="logo-icon">🛡️</div>
+      SecLog Analyzer
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.navbar-nav').classList.toggle('open')">☰</button>
+    <ul class="navbar-nav">
+      <li><a href="dashboard.html" class="nav-link">📊 Dashboard</a></li>
+      <li><a href="upload.html" class="nav-link">📤 Upload</a></li>
+      <li><a href="incidents.html" class="nav-link">🚨 Incidents</a></li>
+      <li><a href="reports.html" class="nav-link active">📋 Reports</a></li>
+    </ul>
+    <button class="btn-logout" id="logoutBtn">Logout</button>
+  </nav>
+
+  <div class="page-container">
+    <div class="page-header">
+      <h1>Reports</h1>
+      <p>Generate and download incident reports</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 class="section-title">📥 Download Incident Report</h3>
+        <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:1.5rem;">
+          Apply filters to generate a focused CSV report of security incidents.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">Severity</label>
+          <select class="form-control" id="rptSeverity">
+            <option value="">All Severities</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="critical">Critical</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Incident Type</label>
+          <select class="form-control" id="rptType">
+            <option value="">All Types</option>
+            <option value="Brute Force">Brute Force</option>
+            <option value="Unauthorized Access">Unauthorized Access</option>
+            <option value="Abnormal IP Activity">Abnormal IP Activity</option>
+            <option value="Suspicious Endpoint">Suspicious Endpoint</option>
+            <option value="Error Rate Anomaly">Error Rate Anomaly</option>
+            <option value="Suspicious Input">Suspicious Input</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-control" id="rptStatus">
+            <option value="">All</option>
+            <option value="open">Open</option>
+            <option value="investigating">Investigating</option>
+            <option value="resolved">Resolved</option>
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-group">
+            <label class="form-label">From Date</label>
+            <input type="date" class="form-control" id="rptFrom">
+          </div>
+          <div class="form-group">
+            <label class="form-label">To Date</label>
+            <input type="date" class="form-control" id="rptTo">
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="downloadBtn" onclick="downloadReport()">
+          📥 Download CSV Report
+        </button>
+      </div>
+
+      <!-- Info panel -->
+      <div class="card">
+        <h3 class="section-title">ℹ️ Report Information</h3>
+
+        <div class="mb-2">
+          <label class="form-label">What's Included</label>
+          <ul style="list-style:none;font-size:0.85rem;color:var(--text-secondary);line-height:2;">
+            <li>✅ Incident ID and detection timestamp</li>
+            <li>✅ Incident type and severity</li>
+            <li>✅ Source IP address</li>
+            <li>✅ Description and evidence</li>
+            <li>✅ Current status (open / investigating / resolved)</li>
+          </ul>
+        </div>
+
+        <div>
+          <label class="form-label">Format</label>
+          <p style="font-size:0.85rem;color:var(--text-secondary);">
+            CSV (Comma-Separated Values) — opens in Excel, Google Sheets, or any spreadsheet application.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/reports.js"></script>
+</body>
+</html>

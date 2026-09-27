@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Security Log Analysis - Administrator Login">
+  <title>Login — Security Log Analysis</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="logo">🛡️</div>
+      <h1>Security Log Analysis</h1>
+      <p class="subtitle">Sign in to your administrator account</p>
+
+      <div class="error-box" id="error"></div>
+
+      <form id="loginForm" autocomplete="off">
+        <div class="form-group">
+          <label class="form-label" for="username">Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginBtn">
+          <span id="btnText">Sign In</span>
+          <span id="btnSpinner" class="spinner" style="display:none"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

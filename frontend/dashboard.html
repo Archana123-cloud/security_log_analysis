@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Security Log Analysis Dashboard - Overview of security events and incidents">
+  <title>Dashboard — Security Log Analysis</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="dashboard.html" class="navbar-brand">
+      <div class="logo-icon">🛡️</div>
+      SecLog Analyzer
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.navbar-nav').classList.toggle('open')">☰</button>
+    <ul class="navbar-nav">
+      <li><a href="dashboard.html" class="nav-link active">📊 Dashboard</a></li>
+      <li><a href="upload.html" class="nav-link">📤 Upload</a></li>
+      <li><a href="incidents.html" class="nav-link">🚨 Incidents</a></li>
+      <li><a href="reports.html" class="nav-link">📋 Reports</a></li>
+    </ul>
+    <button class="btn-logout" id="logoutBtn">Logout</button>
+  </nav>
+
+  <div class="page-container">
+    <div class="page-header">
+      <h1>Dashboard</h1>
+      <p>Real-time overview of your security posture</p>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="grid-4 mb-3" id="cards">
+      <div class="card stat-card blue">
+        <div class="stat-icon">📁</div>
+        <div class="stat-value" id="cardFiles">—</div>
+        <div class="stat-label">Log Files</div>
+      </div>
+      <div class="card stat-card green">
+        <div class="stat-icon">📝</div>
+        <div class="stat-value" id="cardEntries">—</div>
+        <div class="stat-label">Log Entries</div>
+      </div>
+      <div class="card stat-card amber">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-value" id="cardFailed">—</div>
+        <div class="stat-label">Failed Logins</div>
+      </div>
+      <div class="card stat-card red">
+        <div class="stat-icon">🚨</div>
+        <div class="stat-value" id="cardIncidents">—</div>
+        <div class="stat-label">Incidents</div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid-2 mb-3">
+      <div class="card chart-card">
+        <h3>📈 Events Over Time</h3>
+        <div class="chart-container">
+          <canvas id="timeChart"></canvas>
+        </div>
+      </div>
+      <div class="card chart-card">
+        <h3>🎯 Incidents by Severity</h3>
+        <div class="chart-container">
+          <canvas id="sevChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="grid-2">
+      <!-- Top IPs -->
+      <div class="card">
+        <h3 class="section-title">🌐 Top Source IPs</h3>
+        <ul class="ip-list" id="topIps">
+          <li class="empty-state"><p>No data yet</p></li>
+        </ul>
+      </div>
+
+      <!-- Recent Incidents -->
+      <div class="card">
+        <h3 class="section-title">🕒 Recent Incidents</h3>
+        <div id="recentIncidents">
+          <div class="empty-state"><p>No incidents detected</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

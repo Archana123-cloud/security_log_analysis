@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Upload security log files for analysis">
+  <title>Upload — Security Log Analysis</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="dashboard.html" class="navbar-brand">
+      <div class="logo-icon">🛡️</div>
+      SecLog Analyzer
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.navbar-nav').classList.toggle('open')">☰</button>
+    <ul class="navbar-nav">
+      <li><a href="dashboard.html" class="nav-link">📊 Dashboard</a></li>
+      <li><a href="upload.html" class="nav-link active">📤 Upload</a></li>
+      <li><a href="incidents.html" class="nav-link">🚨 Incidents</a></li>
+      <li><a href="reports.html" class="nav-link">📋 Reports</a></li>
+    </ul>
+    <button class="btn-logout" id="logoutBtn">Logout</button>
+  </nav>
+
+  <div class="page-container">
+    <div class="page-header">
+      <h1>Upload Log File</h1>
+      <p>Upload security log files for parsing and threat detection</p>
+    </div>
+
+    <div class="grid-2">
+      <!-- Upload Zone -->
+      <div class="card">
+        <div class="upload-zone" id="dropZone">
+          <div class="upload-icon">📤</div>
+          <p><strong>Drop your log file here</strong> or click to browse</p>
+          <p class="supported">Supported: .log, .txt, .csv &bull; Max 10 MB</p>
+          <input type="file" id="fileInput" accept=".log,.txt,.csv" style="display:none">
+        </div>
+
+        <div class="upload-result" id="uploadResult"></div>
+
+        <div class="mt-2" id="uploadProgress" style="display:none">
+          <div style="display:flex;align-items:center;gap:0.5rem;color:var(--text-secondary);font-size:0.85rem;">
+            <span class="spinner"></span> Processing file...
+          </div>
+        </div>
+      </div>
+
+      <!-- Format Info -->
+      <div class="card">
+        <h3 class="section-title">📖 Supported Formats</h3>
+
+        <div class="mb-2">
+          <label class="form-label">Apache Combined Log</label>
+          <div class="evidence-box">192.168.1.25 - - [01/Sep/2026:09:15:10 +0530] "GET /admin HTTP/1.1" 401 532</div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">CSV Format</label>
+          <div class="evidence-box">timestamp,ip,username,event_type,status,endpoint,message
+2026-09-01 09:15:10,192.168.1.25,admin,LOGIN_FAILED,401,/login,Invalid password</div>
+        </div>
+
+        <div>
+          <label class="form-label">Detection Rules Applied</label>
+          <ul style="list-style:none;font-size:0.85rem;color:var(--text-secondary);line-height:2;">
+            <li>🔴 Brute Force Detection (≥5 failed logins in 10 min)</li>
+            <li>🟡 Unauthorized Access (401/403 responses)</li>
+            <li>🟠 Abnormal IP Activity (>100 requests in 5 min)</li>
+            <li>🔵 Suspicious Endpoint Access</li>
+            <li>🟣 Error Rate Anomaly</li>
+            <li>⚪ Injection Pattern Detection</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload History -->
+    <div class="card mt-3">
+      <h3 class="section-title flex-between">
+        <span>📂 Upload History</span>
+        <button class="btn btn-outline btn-sm" onclick="loadHistory()">Refresh</button>
+      </h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>File Name</th>
+              <th>Type</th>
+              <th>Size</th>
+              <th>Valid</th>
+              <th>Invalid</th>
+              <th>Status</th>
+              <th>Uploaded</th>
+            </tr>
+          </thead>
+          <tbody id="historyRows">
+            <tr><td colspan="8" class="text-center" style="padding:2rem;color:var(--text-muted);">No files uploaded yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/upload.js"></script>
+</body>
+</html>
